@@ -4,6 +4,14 @@ import json
 from datetime import datetime, timezone
 from decimal import Decimal  # <-- ADD THIS
 
+
+aws_region = os.getenv("AWS_REGION")
+
+rekognition = boto3.client('rekognition', region_name=aws_region)
+s3 = boto3.client('s3', region_name=aws_region)
+dynamodb = boto3.resource('dynamodb', region_name=aws_region)
+
+
 def upload_image_to_s3(file_path, bucket, key):
     s3 = boto3.client('s3')
     s3.upload_file(file_path, bucket, key)
